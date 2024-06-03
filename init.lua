@@ -14,9 +14,15 @@ vim.opt.rtp:prepend(lazypath)
 require("vim-option")
 require("lazy").setup("plugins")
 
+-- Encapsulate key mappings in a local scope
+local function setup_key_mappings()
+    -- Map Ctrl + s to save in normal mode
+    vim.api.nvim_set_keymap('n', '<C-s>', ':w<CR>', { noremap = true, silent = true })
+    -- Map Ctrl + s to save in insert mode
+    vim.api.nvim_set_keymap('i', '<C-s>', '<Esc>:w<CR>a', { noremap = true, silent = true })
+end
 
-
-
-
+-- Call the function to set up key mappings
+setup_key_mappings()
 
 

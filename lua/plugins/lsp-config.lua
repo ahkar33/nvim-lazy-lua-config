@@ -9,7 +9,7 @@ return {
 		"williamboman/mason-lspconfig.nvim",
 		config = function()
 			require("mason-lspconfig").setup({
-				ensure_installed = { "lua_ls", "tsserver", "html", "tailwindcss", "cssls", "jsonls" },
+				ensure_installed = { "lua_ls", "tsserver", "html", "tailwindcss", "cssls", "jsonls", "gopls"},
 			})
 		end,
 	},
@@ -18,7 +18,7 @@ return {
 		config = function()
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 			local lspconfig = require("lspconfig")
-      lspconfig.emmet_language_server.setup({})
+			lspconfig.emmet_language_server.setup({})
 			lspconfig.lua_ls.setup({
 				capabilities = capabilities,
 			})
@@ -37,6 +37,12 @@ return {
 			lspconfig.jsonls.setup({
 				capabilities = capabilities,
 			})
+      lspconfig.gopls.setup({
+        capabilities = capabilities,
+        cmd = {"gopls"},
+        filetypes = {"go", "gomod", "gowork", "gotmpl"},
+        root_dir = lspconfig.util.root_pattern("go.work", "go.mod", ".git"),
+      })
 			vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
 			vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
 			vim.keymap.set("n", "gr", vim.lsp.buf.references, {})
