@@ -25,6 +25,12 @@ local function setup_key_mappings()
 	vim.api.nvim_set_keymap("n", "<ScrollWheelRight>", "zl", { noremap = true, silent = true })
 end
 
+-- this is to disable auto commenting on new lines
+vim.api.nvim_create_autocmd('BufEnter', {
+  pattern = '*',
+  command = 'set formatoptions-=cro'
+})
+
 -- Call the function to set up key mappings
 setup_key_mappings()
 
