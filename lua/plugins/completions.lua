@@ -19,11 +19,7 @@ return {
         snippet = {
           -- REQUIRED - you must specify a snippet engine
           expand = function(args)
-            -- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
             require("luasnip").lsp_expand(args.body) -- For `luasnip` users.
-            -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
-            -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
-            -- vim.snippet.expand(args.body) -- For native neovim snippets (Neovim v0.10+)
           end,
         },
         window = {
@@ -35,28 +31,21 @@ return {
           ["<C-f>"] = cmp.mapping.scroll_docs(4),
           ["<C-Space>"] = cmp.mapping.complete(),
           ["<C-e>"] = cmp.mapping.abort(),
+          
+          -- Bind Enter for confirming selection
           ["<CR>"] = cmp.mapping.confirm({ select = true }),
 
-          -- tab instead of enter
-          ["<TAB>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-              cmp.confirm({ select = true })
-            else
-              fallback()
-            end
-          end, { "i", "s" }),
-          ["<S-TAB>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-              cmp.select_prev_item()
-            else
-              fallback()
-            end
-          end, { "i", "s" }),
-          -- tab instead of enter
+          -- Disable Tab key behavior
+          ["<Tab>"] = function(fallback)
+            fallback() -- Do nothing, let it fallback to default behavior
+          end,
+
+          ["<S-Tab>"] = function(fallback)
+            fallback() -- Do nothing on Shift-Tab too
+          end,
         }),
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
-          -- { name = "vsnip" }, -- For vsnip users.
           { name = "luasnip" }, -- For luasnip users.
         }, {
           { name = "buffer" },
@@ -65,3 +54,4 @@ return {
     end,
   },
 }
+
