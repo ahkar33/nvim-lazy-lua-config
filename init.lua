@@ -13,6 +13,20 @@ vim.opt.rtp:prepend(lazypath)
 
 require("vim-option")
 require("lazy").setup("plugins")
+-- require("menu")
+
+-- -- Keyboard users
+-- vim.keymap.set("n", "<C-t>", function()
+--   require("menu").open("default")
+-- end, {})
+
+-- -- mouse users + nvimtree users!
+-- vim.keymap.set("n", "<RightMouse>", function()
+--   vim.cmd.exec '"normal! \\<RightMouse>"'
+
+--   local options = vim.bo.ft == "NvimTree" and "nvimtree" or "default"
+--   require("menu").open(options, { mouse = true })
+-- end, {})
 
 -- Encapsulate key mappings in a local scope
 local function setup_key_mappings()
@@ -26,9 +40,9 @@ local function setup_key_mappings()
 end
 
 -- this is to disable auto commenting on new lines
-vim.api.nvim_create_autocmd('BufEnter', {
-  pattern = '*',
-  command = 'set formatoptions-=cro'
+vim.api.nvim_create_autocmd("BufEnter", {
+	pattern = "*",
+	command = "set formatoptions-=cro",
 })
 
 -- Call the function to set up key mappings
@@ -40,11 +54,4 @@ vim.opt.mouse = "a"
 -- Adjust horizontal scrolling settings
 vim.opt.sidescroll = 1
 vim.opt.sidescrolloff = 5
-
-
-
-
-
-
-
 
